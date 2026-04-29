@@ -20,6 +20,7 @@ export const useUserStore = defineStore('user', () => {
     userInfo.value = null
     menuList.value = []
     localStorage.removeItem('userInfo')
+    localStorage.removeItem('sessionToken')
   }
 
   function restoreSession() {

@@ -37,9 +37,9 @@
             <el-tag :type="methodType(row.method)" size="small" effect="dark">{{ row.method }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="group" label="所属模块" width="110">
+        <el-table-column prop="groupName" label="所属模块" width="110">
           <template #default="{ row }">
-            <el-tag size="small" effect="plain">{{ row.group }}</el-tag>
+            <el-tag size="small" effect="plain">{{ row.groupName }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column prop="description" label="描述" min-width="200" show-overflow-tooltip />
@@ -77,7 +77,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="所属模块">
-          <el-input v-model="editForm.group" placeholder="如：认证模块" />
+          <el-input v-model="editForm.groupName" placeholder="如：认证模块" />
         </el-form-item>
         <el-form-item label="描述">
           <el-input v-model="editForm.description" type="textarea" :rows="3" placeholder="接口功能描述" />
@@ -107,12 +107,12 @@ const dialogVisible = ref(false)
 const editForm = ref({})
 const dialogTitle = computed(() => editForm.value.id ? '编辑接口' : '新增接口')
 
-const groups = computed(() => [...new Set(apis.value.map(a => a.group))])
+const groups = computed(() => [...new Set(apis.value.map(a => a.groupName))])
 
 const filteredApis = computed(() => {
   return apis.value.filter(a => {
     const matchSearch = !searchText.value || a.name.includes(searchText.value) || a.path.includes(searchText.value)
-    const matchGroup = !filterGroup.value || a.group === filterGroup.value
+    const matchGroup = !filterGroup.value || a.groupName === filterGroup.value
     const matchMethod = !filterMethod.value || a.method === filterMethod.value
     return matchSearch && matchGroup && matchMethod
   })
@@ -124,7 +124,7 @@ function methodType(method) {
 }
 
 function handleAdd() {
-  editForm.value = { name: '', path: '', method: 'GET', group: '', description: '', status: 1 }
+  editForm.value = { name: '', path: '', method: 'GET', groupName: '', description: '', status: 1 }
   dialogVisible.value = true
 }
 

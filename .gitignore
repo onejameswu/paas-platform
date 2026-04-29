@@ -33,3 +33,6 @@ pnpm-debug.log*
 
 # Lock files
 package-lock.json
+
+# Test coverage
+coverage/

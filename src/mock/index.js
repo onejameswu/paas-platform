@@ -18,29 +18,31 @@ let mockMenus = [
   { id: 4, parentId: 0, menuName: '日志审计', menuCode: 'logs', path: '/logs', icon: 'Document', sortOrder: 4, visible: true, component: 'Logs' },
   { id: 5, parentId: 0, menuName: '监控中心', menuCode: 'monitor', path: '/monitor', icon: 'DataLine', sortOrder: 5, visible: true, component: 'Monitor' },
   { id: 6, parentId: 0, menuName: '菜单管理', menuCode: 'menus', path: '/menus', icon: 'Menu', sortOrder: 6, visible: true, component: 'Menus' },
-  { id: 7, parentId: 0, menuName: '接口管理', menuCode: 'apis', path: '/apis', icon: 'Connection', sortOrder: 7, visible: true, component: 'Apis' }
+  { id: 7, parentId: 0, menuName: '接口管理', menuCode: 'apis', path: '/apis', icon: 'Connection', sortOrder: 7, visible: true, component: 'Apis' },
+  { id: 8, parentId: 0, menuName: '系统设置', menuCode: 'settings', path: '/settings', icon: 'Setting', sortOrder: 8, visible: true, component: 'Settings' },
+  { id: 9, parentId: 0, menuName: '在线用户', menuCode: 'sessions', path: '/sessions', icon: 'UserFilled', sortOrder: 9, visible: true, component: 'Sessions' }
 ]
 
 // ---- 角色菜单权限 ----
-const mockRoleMenus = {
-  superAdmin: [1, 2, 3, 4, 5, 6, 7],
-  admin: [1, 2, 3, 4, 5],
+export const mockRoleMenus = {
+  superAdmin: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+  admin: [1, 2, 3, 4, 5, 9],
   user: [1, 3, 5]
 }
 
 // ---- 接口管理数据 ----
 let mockApis = [
-  { id: 1, name: '用户登录', path: '/api/auth/login', method: 'POST', group: '认证模块', status: 1, description: '用户账号密码登录接口', createTime: '2024-01-01 00:00:00' },
-  { id: 2, name: '用户登出', path: '/api/auth/logout', method: 'POST', group: '认证模块', status: 1, description: '退出登录，清除会话', createTime: '2024-01-01 00:00:00' },
-  { id: 3, name: '获取用户列表', path: '/api/users', method: 'GET', group: '用户模块', status: 1, description: '分页获取用户列表，支持搜索筛选', createTime: '2024-01-05 10:00:00' },
-  { id: 4, name: '创建用户', path: '/api/users', method: 'POST', group: '用户模块', status: 1, description: '创建新用户账号', createTime: '2024-01-05 10:00:00' },
-  { id: 5, name: '获取应用列表', path: '/api/apps', method: 'GET', group: '应用模块', status: 1, description: '获取所有应用列表', createTime: '2024-02-01 10:00:00' },
-  { id: 6, name: '部署应用', path: '/api/apps/deploy', method: 'POST', group: '应用模块', status: 1, description: '触发应用部署流程', createTime: '2024-02-01 10:00:00' },
-  { id: 7, name: '获取监控数据', path: '/api/monitor/metrics', method: 'GET', group: '监控模块', status: 1, description: '获取集群监控指标数据', createTime: '2024-03-01 10:00:00' },
-  { id: 8, name: '获取菜单列表', path: '/api/menus', method: 'GET', group: '系统模块', status: 1, description: '获取当前用户可见菜单', createTime: '2024-03-15 10:00:00' },
-  { id: 9, name: '创建菜单', path: '/api/menus', method: 'POST', group: '系统模块', status: 1, description: '新增菜单项（超级管理员）', createTime: '2024-03-15 10:00:00' },
-  { id: 10, name: '获取接口列表', path: '/api/apis', method: 'GET', group: '系统模块', status: 1, description: '获取所有接口配置列表', createTime: '2024-04-01 10:00:00' },
-  { id: 11, name: '旧版兼容接口', path: '/api/v1/legacy', method: 'GET', group: '应用模块', status: 0, description: '旧版本兼容接口，已废弃', createTime: '2024-01-10 10:00:00' }
+  { id: 1, name: '用户登录', path: '/api/auth/login', method: 'POST', groupName: '认证模块', status: 1, description: '用户账号密码登录接口', createTime: '2024-01-01 00:00:00' },
+  { id: 2, name: '用户登出', path: '/api/auth/logout', method: 'POST', groupName: '认证模块', status: 1, description: '退出登录，清除会话', createTime: '2024-01-01 00:00:00' },
+  { id: 3, name: '获取用户列表', path: '/api/users', method: 'GET', groupName: '用户模块', status: 1, description: '分页获取用户列表，支持搜索筛选', createTime: '2024-01-05 10:00:00' },
+  { id: 4, name: '创建用户', path: '/api/users', method: 'POST', groupName: '用户模块', status: 1, description: '创建新用户账号', createTime: '2024-01-05 10:00:00' },
+  { id: 5, name: '获取应用列表', path: '/api/apps', method: 'GET', groupName: '应用模块', status: 1, description: '获取所有应用列表', createTime: '2024-02-01 10:00:00' },
+  { id: 6, name: '部署应用', path: '/api/apps/deploy', method: 'POST', groupName: '应用模块', status: 1, description: '触发应用部署流程', createTime: '2024-02-01 10:00:00' },
+  { id: 7, name: '获取监控数据', path: '/api/monitor/metrics', method: 'GET', groupName: '监控模块', status: 1, description: '获取集群监控指标数据', createTime: '2024-03-01 10:00:00' },
+  { id: 8, name: '获取菜单列表', path: '/api/menus', method: 'GET', groupName: '系统模块', status: 1, description: '获取当前用户可见菜单', createTime: '2024-03-15 10:00:00' },
+  { id: 9, name: '创建菜单', path: '/api/menus', method: 'POST', groupName: '系统模块', status: 1, description: '新增菜单项（超级管理员）', createTime: '2024-03-15 10:00:00' },
+  { id: 10, name: '获取接口列表', path: '/api/apis', method: 'GET', groupName: '系统模块', status: 1, description: '获取所有接口配置列表', createTime: '2024-04-01 10:00:00' },
+  { id: 11, name: '旧版兼容接口', path: '/api/v1/legacy', method: 'GET', groupName: '应用模块', status: 0, description: '旧版本兼容接口，已废弃', createTime: '2024-01-10 10:00:00' }
 ]
 
 // ---- 应用数据 ----
@@ -270,4 +272,128 @@ export function deleteApi(id) {
       resolve({ code: 0, message: '接口删除成功' })
     }, 300)
   })
+}
+
+// ---- 会话管理 ----
+const SESSION_TIMEOUT = 30 * 60 * 1000 // 30 分钟超时
+let mockSessions = []
+let sessionIdCounter = 1000
+
+function generateToken() {
+  return 'tk_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 10)
+}
+
+// 登录（含会话管理，支持踢出旧会话）
+export function mockLoginWithSession(username, password) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const user = mockUsers.find(u => u.username === username && u.password === password)
+      if (user) {
+        if (user.status === 0) { reject({ code: 403, message: '账号已被禁用，请联系管理员' }); return }
+        const { password: _, ...userInfo } = user
+        // 踢出该用户的其他会话
+        const kicked = mockSessions.filter(s => s.userId === user.id)
+        mockSessions = mockSessions.filter(s => s.userId !== user.id)
+        // 创建新会话
+        sessionIdCounter++
+        const session = {
+          id: sessionIdCounter,
+          token: generateToken(),
+          userId: user.id,
+          username: user.username,
+          nickName: user.nickName,
+          role: user.role,
+          roleName: user.roleName,
+          ip: '192.168.1.' + Math.floor(Math.random() * 254 + 1),
+          loginTime: new Date().toLocaleString('zh-CN', { hour12: false }).replace(/\//g, '-'),
+          lastActiveTime: Date.now(),
+          status: 'online'
+        }
+        mockSessions.push(session)
+        resolve({
+          code: 0,
+          message: '登录成功',
+          data: {
+            userInfo,
+            token: session.token,
+            kickedSessions: kicked.length
+          }
+        })
+      } else {
+        reject({ code: 401, message: '用户名或密码错误' })
+      }
+    }, 500)
+  })
+}
+
+// 获取在线用户列表
+export function getOnlineSessions() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const now = Date.now()
+      // 更新状态（先标记再过滤）
+      mockSessions.forEach(s => {
+        s.status = (now - s.lastActiveTime) < SESSION_TIMEOUT ? 'online' : 'offline'
+      })
+      // 清理过期会话
+      mockSessions = mockSessions.filter(s => s.status === 'online')
+      const list = mockSessions.map(s => ({
+        id: s.id,
+        userId: s.userId,
+        username: s.username,
+        nickName: s.nickName,
+        role: s.role,
+        roleName: s.roleName,
+        ip: s.ip,
+        loginTime: s.loginTime,
+        lastActiveTime: new Date(s.lastActiveTime).toLocaleString('zh-CN', { hour12: false }).replace(/\//g, '-'),
+        status: s.status
+      }))
+      resolve({ code: 0, data: { list, total: list.length } })
+    }, 200)
+  })
+}
+
+// 踢出指定会话
+export function kickSession(sessionId) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const idx = mockSessions.findIndex(s => s.id === sessionId)
+      if (idx === -1) { reject({ code: 404, message: '会话不存在' }); return }
+      mockSessions.splice(idx, 1)
+      resolve({ code: 0, message: '已踢出该用户' })
+    }, 200)
+  })
+}
+
+// 验证 Token 是否有效
+export function validateToken(token) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const now = Date.now()
+      const session = mockSessions.find(s => s.token === token)
+      if (session && (now - session.lastActiveTime) < SESSION_TIMEOUT) {
+        session.lastActiveTime = now
+        resolve({ code: 0, data: { valid: true, session } })
+      } else {
+        resolve({ code: 401, data: { valid: false } })
+      }
+    }, 100)
+  })
+}
+
+// 踢出用户的所有其他会话（按用户ID）
+export function kickUserSessions(userId) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const count = mockSessions.filter(s => s.userId === userId).length
+      mockSessions = mockSessions.filter(s => s.userId !== userId)
+      resolve({ code: 0, message: `已踢出 ${count} 个会话`, data: { kickedCount: count } })
+    }, 200)
+  })
+}
+
+// 重置所有会话（仅用于测试）
+export function resetSessions() {
+  mockSessions = []
 }

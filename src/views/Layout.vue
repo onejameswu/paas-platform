@@ -3,16 +3,17 @@
     <!-- 侧边栏 -->
     <el-aside :width="isCollapse ? '64px' : '220px'" class="aside">
       <div class="logo">
-        <el-icon :size="28" color="#409eff"><Cloudy /></el-icon>
-        <span v-show="!isCollapse" class="logo-text">云原生平台</span>
+        <img v-if="themeStore.settings.logoImage" :src="themeStore.settings.logoImage" class="logo-img" />
+        <el-icon v-else :size="28" color="#409eff"><Cloudy /></el-icon>
+        <span v-show="!isCollapse" class="logo-text">{{ themeStore.settings.logoText }}</span>
       </div>
       <el-menu
         :default-active="activeMenu"
         :collapse="isCollapse"
         :router="true"
-        background-color="#001529"
-        text-color="#ffffffa6"
-        active-text-color="#409eff"
+        :background-color="themeStore.settings.sidebarColor"
+        :text-color="themeStore.settings.sidebarTextColor"
+        :active-text-color="themeStore.settings.sidebarActiveColor"
         class="side-menu"
       >
         <el-menu-item v-for="menu in userStore.menuList" :key="menu.menuCode" :index="menu.path">
@@ -66,15 +67,17 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useUserStore } from '@/store/user'
+import { useThemeStore } from '@/store/theme'
 import { generateRoutes } from '@/router'
 
 const route = useRoute()
 const router = useRouter()
 const userStore = useUserStore()
+const themeStore = useThemeStore()
 const isCollapse = ref(false)
 
 const activeMenu = computed(() => route.path)
@@ -97,12 +100,17 @@ function handleCommand(command) {
     }).catch(() => {})
   }
 }
+
+onMounted(() => {
+  themeStore.loadSettings()
+  themeStore.applyTheme()
+})
 </script>
 
 <style scoped>
 .layout-container { height: 100vh; }
 .aside {
-  background-color: #001529;
+  background-color: v-bind('themeStore.settings.sidebarColor');
   transition: width 0.3s;
   overflow: hidden;
 }
@@ -114,6 +122,7 @@ function handleCommand(command) {
   gap: 10px;
   border-bottom: 1px solid #ffffff1a;
 }
+.logo-img { width: 28px; height: 28px; object-fit: contain; }
 .logo-text { color: #fff; font-size: 16px; font-weight: 600; white-space: nowrap; }
 .side-menu { border-right: none; height: calc(100vh - 60px); overflow-y: auto; }
 .side-menu:not(.el-menu--collapse) { width: 220px; }

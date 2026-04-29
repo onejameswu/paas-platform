@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useUserStore } from '../store/user'
+import { validateToken } from '../mock'
 
 const staticRoutes = [
   {
@@ -23,7 +24,9 @@ const viewComponentMap = {
   Logs: () => import('../views/Logs.vue'),
   Monitor: () => import('../views/Monitor.vue'),
   Menus: () => import('../views/Menus.vue'),
-  Apis: () => import('../views/Apis.vue')
+  Apis: () => import('../views/Apis.vue'),
+  Settings: () => import('../views/Settings.vue'),
+  Sessions: () => import('../views/Sessions.vue')
 }
 
 let layoutAdded = false
@@ -89,6 +92,23 @@ router.beforeEach(async (to, from, next) => {
       isRefreshing = false
     }
     return
+  }
+
+  // 已登录 → 校验会话 Token 有效性
+  if (userStore.isLoggedIn && layoutAdded) {
+    const token = localStorage.getItem('sessionToken')
+    if (token) {
+      try {
+        const validRes = await validateToken(token)
+        if (!validRes.data.valid) {
+          userStore.logOut()
+          next('/login')
+          return
+        }
+      } catch {
+        // 校验失败时放行，避免阻塞用户
+      }
+    }
   }
 
   // 未登录且需要认证 → 跳转登录
